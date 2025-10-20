@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Letter Bezier Editor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="letters_bezier_data.js"></script>
+  <script src="sketch.js" defer></script>
+  <script src="editor-ui.js" defer></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* 左侧字母按钮列 */
+    #letterColumn {
+      width: 100px;
+      background: #ffffff;
+      padding: 10px;
+      
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      overflow-y: auto;
+      border: 1px solid rgb(221, 221, 221);
+     
+    }
+
+    #letterColumn button {
+      width: 100%;
+      font-weight: bold;
+      padding: 4px;
+      color: rgb(234, 114, 234);
+      border: 1px solid rgb(234, 114, 234);
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* 中间 + 右侧区域 */
+    #editorContainer {
+      display: flex;
+      flex-grow: 1;
+      height: 100%;
+    }
+
+    /* 控制面板（中间） */
+    #controlsPanel {
+      background: #ffffff;
+      border: 1px solid rgb(221, 221, 221);
+      padding: 20px;
+      width: 250px;
+      
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .sliderGroup {
+      margin-bottom: 16px;
+    }
+
+    label {
+      color: #104dcf;
+      font-weight: bold;
+      font-size: 16px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    #toggleAnchorsBtn {
+      margin-top: 20px;
+      padding: 12px;
+      background: #104dcf;
+      color: white;
+      border: none;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #coords {
+      width: 220px;
+      background: #ffffff;
+      padding: 15px;
+      font-size: 14px;
+      overflow-y: auto;
+      flex-shrink: 0;
+      color: rgb(12, 194, 12);
+      border: 1px solid rgb(221, 221, 221);
+    }
+
+    canvas {
+      flex-grow: 1;
+      display: block;
+      max-width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 左侧：字母选择 -->
+  <div id="letterColumn"></div>
+
+  <!-- 中间 + 右侧区域 -->
+  <div id="editorContainer">
+
+    <!-- 中间：控制面板 -->
+    <div id="controlsPanel">
+      <div class="sliderGroup">
+        <label for="handleSlider">handle Length: <span id="handleLenLabel">40</span></label>
+        <input type="range" id="handleSlider" min="0" max="100" step="1" value="40">
+      </div>
+
+      <div class="sliderGroup">
+        <label for="randomnessSlider">Handle Randomness: <span id="randomnessValue">0</span></label>
+        <input type="range" id="randomnessSlider" min="0" max="100" step="1" value="0">
+      </div>
+
+      <div class="sliderGroup">
+        <label for="anchorRandomnessSlider">Anchor Randomness: <span id="anchorRandomnessValue">0</span></label>
+        <input type="range" id="anchorRandomnessSlider" min="0" max="100" step="1" value="0">
+      </div>
+
+      <button id="toggleAnchorsBtn">Show Anchors</button>
+    </div>
+
+    <!-- 右侧：坐标显示 -->
+    <div id="coords">Coordinates will appear here</div>
+
+  </div>
+</body>
+</html>
